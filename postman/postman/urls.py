@@ -1,5 +1,5 @@
-"""postman URL Configuration
-
+"""
+postman URL Configuration
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.2/topics/http/urls/
 Examples:
@@ -15,7 +15,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.urls.conf import include
+from user import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('users/', include('user.urls')),
+    path('', views.home, name='home'),
+    path('posts/', include('post.urls')),
+    path('groups/', include('group.urls')),
 ]
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + \
+                   static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

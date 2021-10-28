@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>
+    Group {{ group.name }} Page!
+</h2>
+<div class="jumbotron">
+    <h4 class="card-title">{{ group.name }}</h4>
+    <div class="card" style="width:300px">
+        <img class="card-img-top" src="{{ group.image.url }}" alt="Card image" style="width:100%">
+        <div class="card-body">
+            <p class="card-text">name: {{ group.name }}</p>
+            <p class="card-text">owner: {{ group.owner }}</p>
+            <p class="card-text">user: {{ user.pk }}</p>
+            <p class="card-text">username: {{ user.first_name }}</p>
+            <p class="card-text">request.POST: {{ request.POST }}</p>
+
+            <p class="card-text">post: {{ group.post_set.all }}</p>
+            <p class="card-text">create Date: {{ group.create_date }}</p>
+        </div>
+    </div>
+    <br>
+    <div class="container">
+        <p>
+            <a class="btn btn-warning" href="{% url 'group:group_update' pk=group.pk %}">Update</a>
+
+            <a class="btn btn-danger" href="{% url 'group:group_delete' pk=group.pk %}">Delete</a>
+        </p>
+    </div>
+</div>
+<hr>
+{{ group.post.all }}
+<div class="jumbotron">
+    <div class="row">
+        {% if group.post_set.all.count == 0 %}
+        <h3>
+            No Posts in this Group!
+        </h3>
+        {% else %}
+        {% for item in group.post_set.all %}
+        <div class="col-md-6">
+                <h4><a href="{% url 'post:post' pk=item.pk %}">{{ item.title }}</a></h4>
+                <p>{{ item.text }}</p>
+
+
+                {% if item.comment_set.all.count == 0 %}
+                <h4>No comments</h4>
+                {% else %}
+
+                {% for i in item.comment_set.all %}
+                <ul>
+                    <li>Comment: 
+                        <ul>
+                            <li><h5>{{ i.text }}</h5></li>
+                            <li>Date:{{ i.create_date }}</li>
+                            <li><h6>{{ i.author }}</h6></li>
+                        </ul>
+                    </li>
+                </ul>
+                {% endfor %}
+                <p> </p>
+                {% endif %}
+            </ul>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

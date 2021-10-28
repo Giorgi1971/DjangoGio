@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if author_list %}
+
+<ul>
+
+    {% for item in author_list %}
+    <li>
+        <ol>
+            <li><a href="{% url 'author:author' pk=item.pk %}">{{ item.get_full_name }}</a></li>
+            <li>{{ item.first_name }}</li>
+        </ol>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<h3>
+    No List
+</h3>
+{% endif %}
+
+{% endblock %}

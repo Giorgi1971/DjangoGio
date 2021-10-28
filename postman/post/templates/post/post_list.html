@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h4><a href="{% url 'post:create_post' %}">Create New Post!</a></h4>
+{% if post_list %}
+
+
+{% for item in post_list %}
+<h4>Post:</h4>
+<ul>
+            <li><a href="{% url 'post:post' pk=item.pk %}">Title: {{ item.title }}</a></li>
+            <li>Text: {{ item.text }}</li>
+            <li>Group: {{ item.group }}</li>
+            <li>Create data: {{ item.create_date|date:"SHORT_DATE_FORMAT" }}</li>
+</ul>
+    {% endfor %}
+{% else %}
+<h3>
+    No Posts
+</h3>
+{% endif %}
+
+{% endblock %}
