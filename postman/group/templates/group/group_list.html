@@ -4,6 +4,9 @@
 
 {% if group_list %}
 
+<h3>
+    <a href="{% url 'group:create_group' %}">Add new group!</a>
+</h3>
 <ul>
 
     {% for item in group_list %}
