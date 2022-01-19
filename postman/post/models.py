@@ -6,10 +6,13 @@ from user.models import Author
 
 
 class Post(models.Model):
-    title = models.CharField(max_length=48)
-    text = models.TextField()
-    group = models.ForeignKey(Group, on_delete=models.CASCADE)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
+    title = models.CharField(max_length=96)
+    description = models.CharField(max_length=144, default="Write another dexcription")
+    text = models.TextField()
+    group = models.ManyToManyField(Group)
+    image = models.ImageField(upload_to='Posts', blank=True)
+
     create_date = models.DateField(auto_now=True)
 
     def __str__(self) -> str:
@@ -21,9 +24,9 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
+    post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
+    author = models.ForeignKey(Author, on_delete=models.PROTECT, default='Unknown')
     text = models.TextField()
-    author = models.CharField(max_length=256, default='Unknown')
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
     create_date = models.DateTimeField(auto_now=True)
 
     def get_absolute_url(self):

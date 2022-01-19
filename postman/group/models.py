@@ -5,9 +5,16 @@ from user.models import *
 
 
 class Group(models.Model):
-    name = models.CharField(max_length=48)
-    owner = models.OneToOneField(Author, on_delete=models.CASCADE)
+    name = models.CharField(max_length=96, unique=True)
+    slug = models.SlugField(max_length=96, default="add-slug-all-groups")
+    describtion = models.CharField(max_length=96, default='Without Description')
+    owner = models.ForeignKey(Author, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='Groups', blank=True)
     created_date = models.DateField(auto_now=True)
+
+    class Meta:
+        verbose_name = 'category'
+        verbose_name_plural = 'categories'
 
     def __str__(self) -> str:
         return self.name

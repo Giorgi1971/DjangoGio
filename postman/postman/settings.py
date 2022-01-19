@@ -106,7 +106,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'asia/Tbilisi'
+TIME_ZONE = 'Asia/Tbilisi'
 
 USE_I18N = True
 
