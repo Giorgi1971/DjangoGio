@@ -19,6 +19,8 @@ class Group(models.Model):
     def __str__(self) -> str:
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('group:group', kwargs={'pk':self.pk})
 
 class GroupMember(models.Model):
     group = models.ForeignKey(Group,related_name='memberships',on_delete=models.CASCADE)
@@ -29,3 +31,6 @@ class GroupMember(models.Model):
 
     class Meta:
         unique_together = ("group", "user")
+
+    def get_absolute_url(self):
+        return reverse('group:group', kwargs={'pk':self.pk})
