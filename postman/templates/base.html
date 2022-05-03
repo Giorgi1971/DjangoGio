@@ -49,7 +49,7 @@
     {% if user.is_authenticated  %}
     
     <li class="nav-item">
-      <a class="nav-link active text-danger" href="#">{{user.first_name}}</a>
+      <a class="nav-link active text-danger" href="#">Hello {{user.first_name}}</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="{% url 'author:logout' %}">Logout</a>
@@ -58,10 +58,7 @@
     {% else %}
     
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'author:register' %}">Register</a>
-        </li>  
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'author:create_author' %}">Sign up</a>
+          <a class="nav-link" href="{% url 'author:register' %}">Sign up</a>
         </li>  
         <li class="nav-item">
           <a class="nav-link" href="{% url 'author:login' %}">Login</a>

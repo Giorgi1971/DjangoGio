@@ -10,6 +10,7 @@ urlpatterns = [
 
     path('', AutorListView.as_view(), name='authors'),
     path('new/', CreateAuthorView.as_view(), name='create_author'),
+    path('n/', add_author, name='add_author'),
     path('neww/', register, name='register'),
     path('<int:pk>/', AuthorDetailView.as_view(), name='author'),
     path('<int:pk>/update/', UpdateAuthorView.as_view(), name='author_update'),

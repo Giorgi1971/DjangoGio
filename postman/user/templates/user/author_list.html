@@ -10,7 +10,7 @@
     <li>
         <ol>
             <li><a href="{% url 'author:author' pk=item.pk %}">{{ item.get_full_name }}</a></li>
-            <li>{{ item.first_name }}</li>
+            <li>{{ item.password }}</li>
         </ol>
     </li>
     {% endfor %}

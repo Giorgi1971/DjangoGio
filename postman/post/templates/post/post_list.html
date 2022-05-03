@@ -5,44 +5,94 @@
 <h4><a href="{% url 'post:create_post' %}">Create New Post!</a></h4>
 {% if post_list %}
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+<!--  აქ მინდა ძებნის ველი ჩავსვა -->
+<div class="row">
+    <form class="col s12" method="get" action=".">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col s12" style="padding: 20px 40px;">
+                <input id="search_order" type="text" name="order" value="{{ request.GET.plate }}">
+                <label for="search_order">Enter plate</label>
+                <span class="helper-text" data-error="wrong" data-success="right">Format: Order or part Order</span>
+                <button style="float:left">SEARCH</button>
+            </div>
+        </div>
+    </form>
+</div>
+<!-- აქ მთავრდება ძებნის ველი -->
+
+
+
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
 <div class="container blog-page">
     <div class="row clearfix">
-{% for item in post_list %}
+        {% for item in page_obj %}
 
-<div class="col-lg-4 col-md-12">
-    <div class="card single_post">
-        <div class="header">
-            <h2> Category: <strong>{{ item.group.all }}</strong></h2>
-        </div>
-        <div class="body">
-            <h3 class="m-t-0 m-b-5"><a href="blog-details.html">Title: {{ item.title }}</a></h3>
-            <ul class="meta">
-                <li><a href="javascript:void(0);"><i class="zmdi zmdi-account col-blue"></i>Posted By: {{ item.author.get_full_name }}</a></li>
-                <li><a href="javascript:void(0);"><i class="zmdi zmdi-label col-amber"></i>{{ item.create_date|date:"SHORT_DATE_FORMAT" }}</a></li>
-                <li><a href="javascript:void(0);"><i class="zmdi zmdi-comment-text col-blue"></i>Comments: 3</a></li>
-            </ul>
-        </div>
-        <div class="body">
-            <div class="img-post m-b-15">
-                <img src="{{ item.image.url }}" alt="Awesome Image" >
-                <div class="social_share">
-                    <button class="btn btn-primary btn-icon btn-icon-mini btn-round"><i class="zmdi zmdi-facebook"></i></button>
-                    <button class="btn btn-primary btn-icon btn-icon-mini btn-round"><i class="zmdi zmdi-twitter"></i></button>
-                    <button class="btn btn-primary btn-icon btn-icon-mini btn-round"><i class="zmdi zmdi-instagram"></i></button>
+        <div class="col-lg-4 col-md-12">
+            <div class="card single_post">
+                <div class="header">
+                    <h2>Category:</h2>
+                    {% for category in item.group.all %}
+                    <form action="{% url 'group:group' pk=category.pk %}" method="get">
+                        <!-- {% csrf_token %} -->
+                        <input type="submit" value="{{ category.name }}">
+                    </form>
+                    {% endfor %}
+                </div>
+                <div class="body">
+                    <h3 class="m-t-0 m-b-5"><a href="blog-details.html">Title: {{ item.title }}</a></h3>
+                    <ul class="meta">
+                        <li><a href="javascript:void(0);"><i class="zmdi zmdi-account col-blue"></i>Posted By: {{
+                                item.author.get_full_name }}</a></li>
+                        <li><a href="javascript:void(0);"><i class="zmdi zmdi-label col-amber"></i>{{
+                                item.create_date|date:"SHORT_DATE_FORMAT" }}</a></li>
+                        <li><a href="javascript:void(0);"><i class="zmdi zmdi-comment-text col-blue"></i>Comments: {{
+                                item.comments.count }}</a></li>
+                    </ul>
+                </div>
+                <div class="body">
+                    <div class="img-post m-b-15">
+                        <img src="{{ item.image.url }}" alt="Awesome Image" width="100%">
+                        <div class="social_share">
+                            <button class="btn btn-primary btn-icon btn-icon-mini btn-round"><i
+                                    class="zmdi zmdi-facebook"></i></button>
+                            <button class="btn btn-primary btn-icon btn-icon-mini btn-round"><i
+                                    class="zmdi zmdi-twitter"></i></button>
+                            <button class="btn btn-primary btn-icon btn-icon-mini btn-round"><i
+                                    class="zmdi zmdi-instagram"></i></button>
+                        </div>
+                    </div>
+                    <p>text: {{ item.text }}</p>
+                    <a href="{% url 'post:post' pk=item.pk %}" title="read more" class="btn btn-round btn-info">Read
+                        More</a>
                 </div>
             </div>
-            <p>text: {{ item.text }}</p>
-            <a href="{% url 'post:post' pk=item.pk %}" title="read more" class="btn btn-round btn-info">Read More</a>
         </div>
-    </div>
-</div>
-    {% endfor %}
-{% else %}
-<h3>
-    No Posts
-</h3>
-{% endif %}
+        {% endfor %}
+
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+        {% else %}
+        <h3>
+            No Posts
+        </h3>
+        {% endif %}
 
 
-{% endblock %}
+        {% endblock %}

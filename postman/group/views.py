@@ -1,11 +1,10 @@
+from dataclasses import field
 from django.shortcuts import render
 from django.db import models
 from django.shortcuts import render
 from django.views.generic import (CreateView, UpdateView, DeleteView, DetailView, ListView)
 from django.urls import reverse_lazy, reverse
 from .models import Author, Group
-# from .forms import *
-from django.contrib.auth import (authenticate, login, logout)
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 # Create your views here.
@@ -15,6 +14,7 @@ class GroupListView(ListView):
 
 
 class GroupDetailView(DetailView):
+    fields = '__all__'
     model = Group
 
 

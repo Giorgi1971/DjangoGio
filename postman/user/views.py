@@ -1,4 +1,4 @@
-from django.db import models
+﻿from django.db import models
 from django.shortcuts import render
 from django.views.generic import (CreateView, UpdateView, DeleteView, DetailView, ListView)
 from django.urls import reverse_lazy, reverse
@@ -12,18 +12,28 @@ def add_author(request):
     form = AuthorForm()
     if request.method == 'POST':
         form = AuthorForm(request.POST, request.FILES)
+        print('POST')
+
         if form.is_valid():
+            print('pppp')
             ff = form.save(commit=False)
+            ff.set_password(ff.password)
             print(request.FILES)
 
             if 'image' in request.FILES:
-                ff.photo = request.FILES['image']
+                ff.image = request.FILES['image']
+                print('ff_image')
 
-            form.save(commit=True)
+            ff.save()
+            print('ff_save')
+
             return home(request)
         else:
-            return render(request, 'author/author.html', {'form':form})
-    return render(request, 'author/author.html', {'form':form})
+            print('Not can ff')
+            return render(request, 'user/author_form.html', {'form':form})
+    print('GET')
+    
+    return render(request, 'user/author_form.html', {'form':form})
 
 
 def home(request):
@@ -52,7 +62,6 @@ class UpdateAuthorView(UpdateView):
 class AuthorDeleteView(DeleteView):
     model = Author
     success_url = reverse_lazy('author:authors')
-
 
 
 def register(request):

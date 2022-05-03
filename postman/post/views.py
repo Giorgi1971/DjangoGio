@@ -8,9 +8,11 @@ from .forms import *
 from django.contrib.auth import (authenticate, login, logout)
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
+from django.core.paginator import Paginator
 # Create your views here.
 
 class PostListView(ListView):
+    paginate_by = 3
     model = Post
 
 

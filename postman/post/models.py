@@ -15,12 +15,14 @@ class Post(models.Model):
 
     create_date = models.DateField(auto_now=True)
 
+    class Meta:
+        ordering = ['-create_date']
+
     def __str__(self) -> str:
         return self.title
 
     def get_absolute_url(self):
         return reverse('post:post', kwargs={'pk':self.pk})
-
 
 
 class Comment(models.Model):

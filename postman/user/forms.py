@@ -15,4 +15,3 @@ class AuthorForm(forms.ModelForm):
             'first_name': Input(attrs={'placeholder': 'Enter Name'}),
             'last_name': Input(attrs={'placeholder': 'Enter Surname'}),
         }
-
