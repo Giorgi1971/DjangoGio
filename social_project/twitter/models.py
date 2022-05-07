@@ -5,7 +5,7 @@ from django.utils import timezone
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    bio = models.CharField(default='Hola, Twiter', max_length=100)
+    bio = models.CharField(default='Hola, Twitter', max_length=100)
     image = models.ImageField(default='default.png')
 
     def __str__(self) -> str:
@@ -40,4 +40,3 @@ class Relationship(models.Model):
 
     def __str__(self) -> str:
         return f'{self.from_user} to {self.to_user}'
-

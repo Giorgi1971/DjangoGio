@@ -9,10 +9,10 @@
                     <div class="col-xs">
                         <!-- Image form -->
                         <img src="{{ request.user.profile.image.url }}" alt="" class="avator">
-                        <!-- Formulario -->
+                        <!-- Form -->
                     </div>
 
-                    <!-- Formulario -->
+                    <!-- Form began -->
                     <form class="col pr-0" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="input-wrapper">
@@ -33,7 +33,7 @@
 
                         <button class="twitter-btn">Edit Profile</button>
                     </form>
-                    <!-- Formulario -->
+                    <!-- Form end -->
                     
                 </div>
             </div>

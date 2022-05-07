@@ -1,9 +1,8 @@
-from django import views
 from django.urls import path
-from . import views
 from django.contrib.auth.views import LoginView, LogoutView
 from django.conf import settings
 from django.conf.urls.static import static
+from . import views
 
 
 urlpatterns = [
@@ -15,6 +14,6 @@ urlpatterns = [
     path('profile/<str:username>', views.profile, name='profile'),
     path('follow/<str:username>', views.follow, name='follow'),
     path('unfollow/<str:username>', views.unfollow, name='unfollow'),
-    path('editar', views.editar, name='editar'),
+    path('editar', views.editor, name='editor'),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

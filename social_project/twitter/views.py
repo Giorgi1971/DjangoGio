@@ -17,19 +17,23 @@ def home(request):
             return redirect('home')
     else:
         form = PostForm()
-    context = {'posts':posts, 'form':form}
+    context = {'posts': posts, 'form': form}
     return render(request, 'twitter/newsfeed.html', context)
 
 
 def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
+        print(form)
+        print(form.__dict__)
         if form.is_valid():
             form.save()
             return redirect('home')
+        else:
+            print('No Valid')
     else:
         form = UserRegisterForm()
-    context = {'form':form}
+    context = {'form': form}
     return render(request, 'twitter/register.html', context)
 
 
@@ -42,12 +46,12 @@ def delete(request, post_id):
 def profile(request, username):
     user = User.objects.get(username=username)
     posts = user.posts.all()
-    context = {'user':user, 'posts':posts}
+    context = {'user': user, 'posts': posts}
     return render(request, 'twitter/profile.html', context)
 
 
 @login_required
-def editar(request):
+def editor(request):
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
@@ -59,8 +63,8 @@ def editar(request):
     else:
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm()
-    context = {'u_form':u_form, 'p_form':p_form}
-    return render(request, 'twitter/editar.html', context)
+    context = {'u_form': u_form, 'p_form': p_form}
+    return render(request, 'twitter/editor.html', context)
 
 
 @login_required
