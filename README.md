@@ -20,3 +20,4 @@
 *                         {% if request.user.is_authenticated %}
                             {% if user.username != request.user.username %}
                                 {% if user not in request.user.profile.following %}
+                                        follow
