@@ -1,6 +1,6 @@
 # DjangoGio
 
-## This is a Twitter clone
+## This is a Twitter clone, ABOUT social_project!
 ### This project corresponds to the youtube tutorial:
 #### To use/configure it:
 * Clone the repository or download it as a zip.
