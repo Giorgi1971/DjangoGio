@@ -1,7 +1,3 @@
-from email.policy import default
-import imp
-from statistics import mode
-from turtle import fd
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone

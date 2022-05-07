@@ -46,6 +46,7 @@ def profile(request, username):
     return render(request, 'twitter/profile.html', context)
 
 
+@login_required
 def editar(request):
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
